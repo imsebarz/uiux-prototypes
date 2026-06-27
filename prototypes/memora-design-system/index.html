@@ -1,0 +1,269 @@
+<!doctype html>
+<html lang="es" data-memora-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Memora · Design System</title>
+  <meta name="description" content="Sistema de diseño Memora basado en el codebase: tokens, componentes, patrones y prototipos." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='18' fill='%23EB7523'/%3E%3Ctext x='32' y='41' text-anchor='middle' font-family='serif' font-size='30' font-weight='700' fill='white'%3EM%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      color-scheme: light;
+      --font-dm-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --font-neulis: Georgia, "Times New Roman", serif;
+      --font-anton: Impact, Haettenschweiler, "Arial Narrow Bold", sans-serif;
+      --spacing: .25rem;
+      --text-xs: .75rem; --text-sm: .875rem; --text-base: 1rem; --text-lg: 1.125rem; --text-xl: 1.25rem; --text-2xl: 1.5rem; --text-3xl: 1.875rem; --text-4xl: 2.25rem; --text-5xl: 3rem;
+      --font-weight-normal: 400; --font-weight-medium: 500; --font-weight-semibold: 600; --font-weight-bold: 700; --font-weight-extrabold: 800;
+      --memora-space-0: 0; --memora-space-1: .25rem; --memora-space-2: .5rem; --memora-space-3: .75rem; --memora-space-4: 1rem; --memora-space-5: 1.25rem; --memora-space-6: 1.5rem; --memora-space-8: 2rem; --memora-space-10: 2.5rem; --memora-space-12: 3rem; --memora-space-16: 4rem; --memora-space-24: 6rem;
+      --memora-radius-sm: .5rem; --memora-radius-md: .75rem; --memora-radius-lg: 1rem; --memora-radius-xl: 1.5rem; --memora-radius-pill: 999px;
+      --memora-color-action-primary: #eb7523;
+      --memora-color-action-primary-text: #fff;
+      --memora-color-action-primary-hover: #694a38;
+      --memora-color-action-primary-emphasis: #d56518;
+      --memora-color-surface-page: #f6f4eb;
+      --memora-color-surface-page-soft: #f6f4eb;
+      --memora-color-surface-page-elevated: #fdfaf2;
+      --memora-color-surface-page-recessed: #f4ecd9;
+      --memora-color-surface-card: #fff;
+      --memora-color-surface-neutral: #c1e1f1;
+      --memora-color-surface-inverse: #694a38;
+      --memora-color-text-on-inverse: #f6f4eb;
+      --memora-color-text-on-inverse-muted: color-mix(in srgb, #f6f4eb 66%, transparent);
+      --memora-color-surface-accent-sky: #c1e1f1;
+      --memora-color-text-on-accent-sky: #694a38;
+      --memora-color-surface-accent-pink: #ffb0ca;
+      --memora-color-text-on-accent-pink: #694a38;
+      --memora-color-border-default: #694a3859;
+      --memora-color-border-muted: #694a3840;
+      --memora-color-border-soft: #694a381a;
+      --memora-color-text-primary: #694a38;
+      --memora-color-text-heading: #694a38;
+      --memora-color-text-body: #694a38;
+      --memora-color-text-secondary: #694a38cc;
+      --memora-color-text-muted: #694a3899;
+      --memora-color-ink-strong: #694a38;
+      --memora-color-ink-deepest: #1f130b;
+      --memora-color-status-success-fg: #2F9E55;
+      --memora-color-status-success-bg: color-mix(in srgb, #2F9E55 14%, var(--memora-color-surface-page));
+      --memora-color-status-success-text: #1d6f44;
+      --memora-color-status-info-fg: #4b9cc4;
+      --memora-color-status-info-bg: color-mix(in srgb, #4b9cc4 14%, var(--memora-color-surface-page));
+      --memora-color-status-info-text: #365466;
+      --memora-color-status-warning-fg: #d2660f;
+      --memora-color-status-warning-bg: color-mix(in srgb, #d2660f 14%, var(--memora-color-surface-page));
+      --memora-color-status-warning-text: #8d4b1b;
+      --memora-color-status-error-fg: color-mix(in srgb, #ffb0ca 50%, #eb7523 50%);
+      --memora-color-status-error-bg: #ffb0ca;
+      --memora-color-status-error-border: #eb7523;
+      --memora-color-status-error-text: #694a38;
+      --memora-color-status-neutral-bg: rgba(105, 74, 56, .08);
+      --memora-color-status-neutral-text: #694a38cc;
+      --memora-tint-action-08: rgba(235,117,35,.08);
+      --memora-tint-action-12: rgba(235,117,35,.12);
+      --memora-tint-action-16: rgba(235,117,35,.16);
+      --memora-tint-ink-04: rgba(105,74,56,.04);
+      --memora-tint-ink-08: rgba(105,74,56,.08);
+      --memora-shadow-card-rest: 0 1px 2px rgba(105,74,56,.04), 0 4px 12px -2px rgba(105,74,56,.08);
+      --memora-shadow-card-hover: 0 2px 4px rgba(105,74,56,.06), 0 12px 28px -4px rgba(105,74,56,.14), 0 4px 10px -3px rgba(105,74,56,.06);
+      --page-max: 1180px;
+    }
+    [data-memora-theme="dark"] {
+      color-scheme: dark;
+      --memora-color-action-primary: color-mix(in srgb, #eb7523 82%, #f6f4eb 18%);
+      --memora-color-action-primary-hover: color-mix(in srgb, #eb7523 70%, #ffb0ca 30%);
+      --memora-color-action-primary-emphasis: color-mix(in srgb, #d56518 72%, #f6f4eb 28%);
+      --memora-color-surface-page: color-mix(in srgb, #694a38 36%, #000 64%);
+      --memora-color-surface-page-soft: color-mix(in srgb, #694a38 43%, #000 57%);
+      --memora-color-surface-page-elevated: color-mix(in srgb, #694a38 48%, #000 52%);
+      --memora-color-surface-page-recessed: color-mix(in srgb, #694a38 28%, #000 72%);
+      --memora-color-surface-card: color-mix(in srgb, #694a38 50%, #000 50%);
+      --memora-color-surface-neutral: color-mix(in srgb, #c1e1f1 32%, #694a38 68%);
+      --memora-color-border-default: color-mix(in srgb, #c1e1f1 36%, transparent);
+      --memora-color-border-muted: color-mix(in srgb, #c1e1f1 24%, transparent);
+      --memora-color-border-soft: color-mix(in srgb, #f6f4eb 18%, transparent);
+      --memora-color-text-primary: color-mix(in srgb, #f6f4eb 92%, #c1e1f1 8%);
+      --memora-color-text-heading: #f6f4eb;
+      --memora-color-text-body: color-mix(in srgb, #f6f4eb 84%, #c1e1f1 16%);
+      --memora-color-text-secondary: color-mix(in srgb, #f6f4eb 68%, #c1e1f1 32%);
+      --memora-color-text-muted: color-mix(in srgb, #f6f4eb 54%, #c1e1f1 46%);
+      --memora-color-ink-strong: #f6f4eb;
+      --memora-color-ink-deepest: #f6f4eb;
+      --memora-color-status-error-bg: color-mix(in srgb, #ffb0ca 28%, #694a38 72%);
+      --memora-color-status-error-text: #f6f4eb;
+      --memora-color-status-neutral-bg: rgba(246,244,235,.08);
+      --memora-color-status-neutral-text: color-mix(in srgb, #f6f4eb 68%, #c1e1f1 32%);
+      --memora-tint-action-08: rgba(235,117,35,.08);
+      --memora-tint-action-12: rgba(235,117,35,.12);
+      --memora-tint-action-16: rgba(235,117,35,.16);
+      --memora-tint-ink-04: rgba(246,244,235,.04);
+      --memora-tint-ink-08: rgba(246,244,235,.08);
+      --memora-shadow-card-rest: 0 1px 2px rgba(0,0,0,.22), 0 8px 18px -10px rgba(0,0,0,.42);
+      --memora-shadow-card-hover: 0 2px 6px rgba(0,0,0,.24), 0 18px 36px -14px rgba(0,0,0,.58), 0 0 0 1px color-mix(in srgb, #c1e1f1 12%, transparent);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; background: var(--memora-color-surface-page); color: var(--memora-color-text-primary); font-family: var(--font-dm-sans); }
+    a { color: inherit; }
+    button, input, select { font: inherit; }
+    :focus-visible { outline: 3px solid var(--memora-color-action-primary); outline-offset: 2px; }
+    .shell { min-height: 100vh; }
+    .topbar { position: sticky; top: 0; z-index: 20; border-bottom: 1px solid var(--memora-color-border-soft); background: color-mix(in srgb, var(--memora-color-surface-page) 88%, transparent); backdrop-filter: blur(18px); }
+    .topbar__inner { width: min(var(--page-max), calc(100% - 32px)); margin: 0 auto; min-height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: -.03em; }
+    .brand__mark { width: 42px; height: 42px; border-radius: 50%; background: var(--memora-color-action-primary); color: #fff; display: grid; place-items: center; font-family: var(--font-neulis); font-size: 20px; box-shadow: var(--memora-shadow-card-rest); }
+    .nav { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
+    .nav a, .theme-toggle { min-height: 38px; border: 1px solid var(--memora-color-border-soft); border-radius: var(--memora-radius-pill); background: var(--memora-color-surface-card); color: var(--memora-color-text-secondary); padding: 8px 14px; text-decoration: none; font-size: 13px; font-weight: 700; }
+    .theme-toggle { cursor: pointer; }
+    .hero { width: min(var(--page-max), calc(100% - 32px)); margin: 0 auto; padding: clamp(48px, 8vw, 96px) 0 44px; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(300px, .92fr); gap: clamp(28px, 5vw, 70px); align-items: center; }
+    .eyebrow { margin: 0 0 12px; color: var(--memora-color-action-primary); font-size: 12px; font-weight: 900; letter-spacing: .16em; text-transform: uppercase; }
+    h1 { margin: 0; max-width: 760px; color: var(--memora-color-text-heading); font-family: var(--font-neulis); font-size: clamp(42px, 7.4vw, 92px); line-height: .9; letter-spacing: -.07em; text-wrap: balance; }
+    h1 em { color: var(--memora-color-action-primary); font-style: normal; }
+    .hero__copy { margin: 22px 0 0; max-width: 660px; color: var(--memora-color-text-secondary); font-size: clamp(17px, 2vw, 21px); line-height: 1.55; }
+    .hero__actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; border: 1px solid transparent; border-radius: var(--memora-radius-pill); padding: 12px 22px; font-size: var(--text-sm); font-weight: 800; text-decoration: none; transition: .15s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn--primary { background: var(--memora-color-action-primary); border-color: var(--memora-color-action-primary); color: var(--memora-color-action-primary-text); }
+    .btn--secondary { background: var(--memora-color-surface-page-soft); border-color: var(--memora-color-border-default); color: var(--memora-color-text-heading); }
+    .btn--ghost { background: transparent; color: var(--memora-color-action-primary-hover); }
+    .spec-card { border: 1px solid var(--memora-color-border-soft); border-radius: 32px; background: var(--memora-color-surface-card); padding: 20px; box-shadow: var(--memora-shadow-card-hover); }
+    .book-demo { position: relative; min-height: 430px; border-radius: 26px; overflow: hidden; background: linear-gradient(145deg, var(--memora-color-surface-accent-sky), var(--memora-color-surface-accent-pink)); display: grid; place-items: center; }
+    .book { width: min(260px, 72%); aspect-ratio: 3/4; border-radius: 6px 18px 18px 6px; background: linear-gradient(135deg, #c1e1f1, #f6f4eb 48%, #ffb0ca); box-shadow: 22px 34px 70px rgba(105,74,56,.24); border: 1px solid rgba(105,74,56,.22); transform: rotate(-5deg); position: relative; overflow: hidden; }
+    .book::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 18px; background: rgba(105,74,56,.18); }
+    .book__year { position: absolute; left: 34px; bottom: 34px; color: #694a38; font-family: var(--font-anton); font-size: 76px; line-height: .8; letter-spacing: -.05em; }
+    .book__place { position: absolute; top: 28px; left: 34px; right: 28px; color: #694a38; font-family: var(--font-neulis); font-weight: 900; font-size: 28px; line-height: .95; letter-spacing: -.05em; }
+    section { width: min(var(--page-max), calc(100% - 32px)); margin: 0 auto; padding: 52px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 22px; }
+    .section-head h2 { margin: 0; font-family: var(--font-neulis); font-size: clamp(30px, 4vw, 52px); line-height: .96; letter-spacing: -.055em; color: var(--memora-color-text-heading); }
+    .section-head p { max-width: 540px; margin: 0; color: var(--memora-color-text-secondary); line-height: 1.55; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .card { border: 1px solid var(--memora-color-border-soft); border-radius: var(--memora-radius-xl); background: var(--memora-color-surface-card); padding: 22px; box-shadow: var(--memora-shadow-card-rest); }
+    .card h3 { margin: 0 0 8px; color: var(--memora-color-text-heading); font-size: 20px; letter-spacing: -.03em; }
+    .card p { margin: 0; color: var(--memora-color-text-secondary); line-height: 1.5; }
+    .span-3 { grid-column: span 3; } .span-4 { grid-column: span 4; } .span-5 { grid-column: span 5; } .span-6 { grid-column: span 6; } .span-7 { grid-column: span 7; } .span-12 { grid-column: span 12; }
+    .swatches { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .swatch { min-height: 170px; border-radius: 24px; padding: 16px; display: flex; flex-direction: column; justify-content: end; border: 1px solid var(--memora-color-border-soft); }
+    .swatch b { font-size: 14px; } .swatch code { margin-top: 6px; font-size: 12px; opacity: .76; }
+    .components { display: grid; gap: 18px; }
+    .component-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 18px; align-items: start; border: 1px solid var(--memora-color-border-soft); border-radius: 24px; padding: 18px; background: var(--memora-color-surface-card); }
+    .component-row h3 { margin: 4px 0 6px; font-size: 16px; }
+    .component-row small { color: var(--memora-color-text-muted); font-weight: 700; }
+    .samples { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+    .pill { display: inline-flex; align-items: center; gap: 7px; border-radius: var(--memora-radius-pill); padding: 6px 12px; font-size: var(--text-sm); font-weight: 700; }
+    .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: currentColor; }
+    .pill.success { background: var(--memora-color-status-success-bg); color: var(--memora-color-status-success-text); }
+    .pill.info { background: var(--memora-color-status-info-bg); color: var(--memora-color-status-info-text); }
+    .pill.warning { background: var(--memora-color-status-warning-bg); color: var(--memora-color-status-warning-text); }
+    .pill.danger { background: color-mix(in srgb, var(--memora-color-status-error-fg) 15%, var(--memora-color-surface-page)); color: var(--memora-color-status-error-text); }
+    .pill.neutral { background: var(--memora-color-status-neutral-bg); color: var(--memora-color-status-neutral-text); }
+    .field { display: grid; gap: 6px; min-width: min(280px, 100%); }
+    .field label { font-size: 13px; font-weight: 800; color: var(--memora-color-text-body); }
+    .field input { min-height: 46px; border: 1px solid var(--memora-color-border-muted); border-radius: var(--memora-radius-md); background: var(--memora-color-surface-card); color: var(--memora-color-text-primary); padding: 0 14px; }
+    .field input:focus { border-color: var(--memora-color-action-primary); box-shadow: 0 0 0 3px var(--memora-tint-action-16); outline: 0; }
+    .notice { border: 1px solid var(--memora-color-status-info-fg); border-radius: var(--memora-radius-md); background: var(--memora-color-status-info-bg); color: var(--memora-color-status-info-text); padding: 12px 14px; font-size: 14px; }
+    .flow { counter-reset: flow; display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+    .flow-card { position: relative; min-height: 180px; border: 1px solid var(--memora-color-border-soft); border-radius: 26px; background: var(--memora-color-surface-card); padding: 18px; overflow: hidden; }
+    .flow-card::before { counter-increment: flow; content: "0" counter(flow); position: absolute; right: 14px; top: 8px; font-family: var(--font-anton); font-size: 54px; color: var(--memora-tint-action-12); }
+    .flow-card h3 { margin: 0 0 8px; position: relative; } .flow-card p { position: relative; font-size: 14px; }
+    .inverse { background: var(--memora-color-surface-inverse); color: var(--memora-color-text-on-inverse); }
+    .inverse p, .inverse small { color: var(--memora-color-text-on-inverse-muted); }
+    .docs-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .docs-list a { display: block; border: 1px solid var(--memora-color-border-soft); border-radius: 22px; padding: 18px; background: var(--memora-color-surface-card); text-decoration: none; }
+    .docs-list b { display: block; margin-bottom: 6px; color: var(--memora-color-text-heading); } .docs-list span { color: var(--memora-color-text-secondary); font-size: 14px; line-height: 1.4; }
+    footer { width: min(var(--page-max), calc(100% - 32px)); margin: 0 auto; padding: 38px 0 64px; color: var(--memora-color-text-muted); font-size: 13px; }
+    @media (max-width: 900px) { .hero { grid-template-columns: 1fr; } .section-head { display: block; } .section-head p { margin-top: 12px; } .span-3,.span-4,.span-5,.span-6,.span-7 { grid-column: span 12; } .swatches,.flow,.docs-list { grid-template-columns: 1fr; } .component-row { grid-template-columns: 1fr; } .nav a { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="topbar__inner">
+        <div class="brand"><div class="brand__mark">M</div><span>Memora Design System</span></div>
+        <nav class="nav" aria-label="Secciones">
+          <a href="#tokens">Tokens</a><a href="#components">Componentes</a><a href="#flows">Flujos</a><a href="#docs">Docs</a>
+          <button class="theme-toggle" id="themeToggle" type="button">Dark mode</button>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" data-screen-label="01 Overview">
+        <div>
+          <p class="eyebrow">Basado en el codebase real · Next 16 + SCSS tokens</p>
+          <h1>Un sistema cálido, táctil y comercial para vender <em>recuerdos físicos</em>.</h1>
+          <p class="hero__copy">Memora ya tiene una base visual sólida: paleta propia, dark mode, átomos, mixins y patrones de wizard. Esta biblioteca lo convierte en una referencia navegable para prototipos y decisiones UI.</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="./design-system.md">Leer documentación</a>
+            <a class="btn btn--secondary" href="./component-inventory.md">Ver inventario</a>
+            <a class="btn btn--ghost" href="./prototype-brief.md">Próximos prototipos</a>
+          </div>
+        </div>
+        <aside class="spec-card" aria-label="Demo visual de portada Memora">
+          <div class="book-demo"><div class="book"><div class="book__place">Medellín<br/>Memories</div><div class="book__year">2026</div></div></div>
+        </aside>
+      </section>
+
+      <section id="tokens" data-screen-label="02 Tokens">
+        <div class="section-head"><h2>Tokens principales</h2><p>El sistema debe hablar en tokens semánticos, no en hex sueltos. Hex suelto en componente, tragedia garantizada.</p></div>
+        <div class="swatches">
+          <div class="swatch" style="background:#f6f4eb;color:#694a38"><b>Floral White</b><code>#F6F4EB</code></div>
+          <div class="swatch" style="background:#694a38;color:#f6f4eb"><b>Coffee Bean</b><code>#694A38</code></div>
+          <div class="swatch" style="background:#eb7523;color:#fff"><b>Pumpkin Spice</b><code>#EB7523</code></div>
+          <div class="swatch" style="background:#c1e1f1;color:#694a38"><b>Pale Sky</b><code>#C1E1F1</code></div>
+          <div class="swatch" style="background:#ffb0ca;color:#694a38"><b>Baby Pink</b><code>#FFB0CA</code></div>
+        </div>
+        <div class="grid" style="margin-top:16px">
+          <article class="card span-4"><h3>Tipografía</h3><p>DM Sans para UI; Neulis para marca/titulares; Anton para portadas y año.</p></article>
+          <article class="card span-4"><h3>Superficies</h3><p>Page, card, inverse, accent-sky y accent-pink evitan romper dark mode.</p></article>
+          <article class="card span-4"><h3>Motion</h3><p>Transiciones suaves con respeto global por <code>prefers-reduced-motion</code>.</p></article>
+        </div>
+      </section>
+
+      <section id="components" data-screen-label="03 Components">
+        <div class="section-head"><h2>Componentes canónicos</h2><p>Estos son los bloques que deben gobernar nuevos prototipos: menos CSS local, más consistencia y menos Frankenstein visual.</p></div>
+        <div class="components">
+          <div class="component-row"><div><small>Atoms</small><h3>ActionButton</h3><p>Primary, secondary, ghost, dark y danger.</p></div><div class="samples"><a class="btn btn--primary" href="#">Crear mi book</a><a class="btn btn--secondary" href="#">Ver destinos</a><a class="btn btn--ghost" href="#">Eliminar</a></div></div>
+          <div class="component-row"><div><small>Forms</small><h3>TextField</h3><p>Label, helper/error, focus ring y estado requerido.</p></div><div class="samples"><div class="field"><label for="city">Ciudad de envío *</label><input id="city" value="Medellín" /></div><div class="notice">Tu progreso se guardó automáticamente.</div></div></div>
+          <div class="component-row"><div><small>Status</small><h3>StatusPill</h3><p>Estados operativos y de compra con tonos semánticos.</p></div><div class="samples"><span class="pill success">Pagado</span><span class="pill info">Enviado</span><span class="pill warning">Pendiente</span><span class="pill danger">Error</span><span class="pill neutral">Borrador</span></div></div>
+          <div class="component-row"><div><small>Surfaces</small><h3>SurfaceCard + EmptyState</h3><p>Paneles premium y estados vacíos con acción clara.</p></div><div class="samples"><div class="card" style="max-width:360px"><h3>Aún no tienes drafts</h3><p>Empieza un book y lo guardaremos aquí automáticamente.</p><p style="margin-top:14px"><a class="btn btn--primary" href="#">Crear ahora</a></p></div></div></div>
+        </div>
+      </section>
+
+      <section id="flows" data-screen-label="04 Flows">
+        <div class="section-head"><h2>Flujos que mandan</h2><p>Los prototipos próximos deben enfocarse en conversión y confianza: landing, create mobile, checkout. Lo demás espera su turno, como adulto funcional.</p></div>
+        <div class="flow">
+          <article class="flow-card"><h3>Landing</h3><p>Propuesta de valor, destino, cómo funciona, bundles, reviews y CTA.</p></article>
+          <article class="flow-card"><h3>Ubicación</h3><p>Elegir destino/portada con claridad de precio y resultado final.</p></article>
+          <article class="flow-card"><h3>Upload</h3><p>Confianza durante subida: progreso, guardado y errores recuperables.</p></article>
+          <article class="flow-card"><h3>Diseño</h3><p>Editor simple, móvil primero, sin exigir paciencia técnica.</p></article>
+          <article class="flow-card inverse"><h3>Checkout</h3><p>Costos, envío, cupón y pago en un cierre claro y confiable.</p></article>
+        </div>
+      </section>
+
+      <section id="docs" data-screen-label="05 Documentation">
+        <div class="section-head"><h2>Documentación generada</h2><p>Base viva para diseñar prototipos sobre Memora sin inventar valores ni romper el sistema existente.</p></div>
+        <div class="docs-list">
+          <a href="./design-system.md"><b>Design system</b><span>Tokens, personalidad visual, reglas, dark mode y patrones UX.</span></a>
+          <a href="./component-inventory.md"><b>Inventario de componentes</b><span>Átomos, moléculas, organismos y rutas UI clave.</span></a>
+          <a href="./prototype-brief.md"><b>Brief de prototipos</b><span>Prioridades: /create mobile, checkout, landing conversion.</span></a>
+        </div>
+      </section>
+    </main>
+
+    <footer>Basado en Memora codebase · Generado para prototipos UI/UX en uiux-prototypes · No modifica producción.</footer>
+  </div>
+  <script>
+    const root = document.documentElement;
+    const button = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('memora-ds-theme');
+    if (saved === 'dark') root.dataset.memoraTheme = 'dark';
+    function syncLabel(){ button.textContent = root.dataset.memoraTheme === 'dark' ? 'Light mode' : 'Dark mode'; }
+    syncLabel();
+    button.addEventListener('click', () => {
+      root.dataset.memoraTheme = root.dataset.memoraTheme === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('memora-ds-theme', root.dataset.memoraTheme);
+      syncLabel();
+    });
+  </script>
+</body>
+</html>
