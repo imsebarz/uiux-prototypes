@@ -4,6 +4,10 @@ Repositorio de prototipos interactivos, exploraciones visuales y handoff UI/UX.
 
 Cada carpeta dentro de `prototypes/` contiene un entregable navegable. La raíz funciona como índice público para GitHub Pages.
 
+## Workflow
+
+Ver [`EDNA_WORKFLOW.md`](./EDNA_WORKFLOW.md) para el proceso oficial de creación, verificación y publicación de prototipos.
+
 ## Convención
 
 - `prototypes/<slug>/index.html`: prototipo principal.
