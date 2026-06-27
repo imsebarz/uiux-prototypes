@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Edna Moda · UI/UX Prototypes</title>
+  <meta name="description" content="Prototipos interactivos y exploraciones UI/UX para Sebas." />
+  <style>
+    :root {
+      --bg: #0d0b10;
+      --panel: rgba(255,255,255,.075);
+      --panel-strong: rgba(255,255,255,.12);
+      --text: #f7f0e8;
+      --muted: #b8abbf;
+      --line: rgba(255,255,255,.16);
+      --accent: #ff4f9a;
+      --accent-2: #f4c95d;
+      --radius: 28px;
+      --shadow: 0 30px 90px rgba(0,0,0,.45);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255,79,154,.28), transparent 30%),
+        radial-gradient(circle at 88% 12%, rgba(244,201,93,.18), transparent 28%),
+        linear-gradient(145deg, #0d0b10 0%, #18111e 52%, #08070a 100%);
+    }
+    main { width: min(1120px, calc(100% - 40px)); margin: 0 auto; padding: 72px 0; }
+    .hero {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(255,255,255,.11), rgba(255,255,255,.045));
+      box-shadow: var(--shadow);
+      padding: clamp(28px, 5vw, 64px);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -18% -42% auto;
+      width: 420px;
+      height: 420px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,79,154,.28), transparent 65%);
+      pointer-events: none;
+    }
+    .eyebrow { color: var(--accent-2); letter-spacing: .16em; text-transform: uppercase; font-size: 12px; font-weight: 800; }
+    h1 { font-size: clamp(44px, 8vw, 92px); line-height: .9; margin: 18px 0 22px; letter-spacing: -.07em; max-width: 820px; }
+    p { color: var(--muted); font-size: clamp(17px, 2vw, 21px); line-height: 1.55; margin: 0; max-width: 710px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; margin-top: 28px; }
+    .card {
+      display: block;
+      min-height: 170px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      text-decoration: none;
+      color: var(--text);
+      transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .card:hover { transform: translateY(-3px); background: var(--panel-strong); border-color: rgba(255,255,255,.3); }
+    .card small { color: var(--accent); font-weight: 800; text-transform: uppercase; letter-spacing: .12em; }
+    .card h2 { margin: 14px 0 8px; font-size: 24px; letter-spacing: -.03em; }
+    .card p { font-size: 15px; }
+    .empty { opacity: .78; }
+    footer { color: #8d8295; font-size: 13px; margin-top: 24px; }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="hero">
+      <div class="eyebrow">Edna Moda · Prototipos UI/UX</div>
+      <h1>Diseños que se pueden tocar, no solo admirar.</h1>
+      <p>Índice público para prototipos HTML, exploraciones visuales y handoffs interactivos. Si una idea no sobrevive a un clic, cariño, era decoración con autoestima.</p>
+    </section>
+
+    <section class="grid" aria-label="Lista de prototipos">
+      <article class="card empty">
+        <small>Próximo</small>
+        <h2>Primer prototipo</h2>
+        <p>Aquí aparecerán los entregables navegables cuando Sebas pida una exploración o flujo específico.</p>
+      </article>
+    </section>
+
+    <footer>Repositorio: imsebarz/uiux-prototypes · Publicado con GitHub Pages.</footer>
+  </main>
+</body>
+</html>
