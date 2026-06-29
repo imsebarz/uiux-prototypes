@@ -1,70 +1,71 @@
-# Memora Cover Color Customizer — notas de entrega
+# Memora Cover Style Customizer — notas de adaptación
 
-## Qué incluye
+## Decisión principal
 
-- Prototipo HTML interactivo para personalizar color de fondo y color de letra de portada/contraportada.
-- Preview en vivo de portada, contraportada y mock mobile.
-- Paletas recomendadas como camino principal.
-- Ajuste avanzado con color picker + HEX.
-- Validación visual de contraste y modo “proteger legibilidad”.
+La personalización no debe venderse como “cambiar color de fondo” para todos los casos, porque Memora usa portadas y contraportadas como assets raster por destino. La solución user-facing correcta es:
 
-## Decisión UX principal
+- **Tratamiento / tinte de portada** sobre el asset real.
+- **Color del año/subtítulo** con protección de legibilidad.
+- **Presets curados** por tono/destino antes del ajuste avanzado.
+- “Color de fondo” solo para covers generadas o fallback sin imagen.
 
-La personalización no debe abrir con libertad total. En Memora, el usuario quiere un libro bonito, no convertirse en director de arte bajo presión. Por eso la UI prioriza:
+## Fuente revisada
 
-1. Paletas curadas.
-2. Preview inmediato.
-3. Edición avanzada escondida/controlada.
-4. Protección de contraste para impresión y lectura.
+Repo local: `/home/openclaw/.openclaw/workspace/repos/memora`
 
-## Handoff frontend
+Archivos relevantes:
 
-### Modelo de datos sugerido
+- `src/styles/base/_tokens.scss`
+- `src/styles/DESIGN_SYSTEM.md`
+- `src/components/organisms/flipbook/ReviewBookFlipbookFaceContent.tsx`
+- `src/components/organisms/wizard/location/CoverYearOverlay.tsx`
+- `src/components/molecules/BackCoverSubtitle/BackCoverSubtitle.tsx`
+- `src/components/organisms/admin/locationDetail/CoverYearStyleEditorModal.tsx`
+- `src/components/organisms/admin/locationDetail/CoverEditorPanelFields.tsx`
+- `src/components/molecules/DestinationCoverCard/DestinationCoverCard.tsx`
+
+Producción revisada: `https://memorabooks.co/`
+
+Assets reales usados en el prototipo:
+
+- París cover/back cover
+- Colombia cover/back cover
+- Italia cover/back cover
+
+## Hallazgos UX/UI
+
+1. El admin ya tiene el patrón poderoso: color, fuente, peso, letter spacing, guías, recents y preview en vivo.
+2. El usuario final no necesita ese nivel de libertad; necesita sentirse dueño sin destruir el arte.
+3. La portada usa `CoverYearOverlay`; la contraportada usa `BackCoverSubtitle`.
+4. El sistema debe compartir datos entre wizard, review, PDF y admin para evitar divergencias.
+
+## Recomendación de producto
+
+### Usuario final
+
+- Paso “Diseño” en wizard.
+- Destino visible.
+- Tabs: Portada / Contraportada.
+- Presets recomendados: Memora editorial, Luz postal, Pumpkin cálido, Baby pink recuerdo, Tapa sobria, Sin tinte.
+- Ajuste fino colapsado o secundario.
+- Protección de legibilidad activa por defecto.
+
+### Admin
+
+Mantener editor completo para calibrar asset por destino: guías, posición, font size, bottom ratio de contraportada.
+
+### Dev handoff
+
+Evaluar extender `CoverYearStyle` o crear `CoverTreatmentStyle` con:
 
 ```ts
-type CoverColorSettings = {
-  front: {
-    backgroundColor: string;
-    textColor: string;
-    paletteId?: string;
-    isCustom?: boolean;
-  };
-  back: {
-    backgroundColor: string;
-    textColor: string;
-    paletteId?: string;
-    isCustom?: boolean;
-  };
-  protectLegibility: boolean;
+type CoverTreatmentStyle = {
+  tintColor: string;
+  tintOpacity: number;
+  textColor: string;
+  presetId?: string;
+  applyTo?: "front" | "back" | "both";
 };
 ```
 
-### Estados mínimos
-
-- Default por destino/plantilla.
-- Preset seleccionado.
-- Custom validado.
-- Contraste insuficiente.
-- Autosave pending/saved/error.
-- Reset por lado.
-- Aplicar a ambas caras.
-- Disabled durante render/generación de PDF.
-
-### Accesibilidad
-
-- Mantener contraste mínimo 4.5:1 para textos principales.
-- Inputs de color con label textual y campo HEX editable.
-- Focus visible en tabs, presets, color pickers y acciones.
-- Targets táctiles mínimos de 44px en mobile.
-
-### Implementación recomendada
-
-1. Agregar presets de color al modelo de portada.
-2. Persistir `front/back backgroundColor/textColor` en draft.
-3. Reusar preview actual de cover/back cover aplicando CSS variables.
-4. Añadir validación de contraste antes de guardar/renderizar PDF.
-5. Conectar el render PDF para respetar los colores finales.
-
-## Caveat
-
-Este prototipo no modifica Memora ni genera PDF real. Es una exploración de interacción y handoff visual para decidir el comportamiento antes de implementarlo.
+Regla: el PDF renderer debe consumir la misma data que review/flipbook.
